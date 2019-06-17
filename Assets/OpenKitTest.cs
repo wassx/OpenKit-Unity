@@ -10,14 +10,23 @@ public class OpenKitTest : MonoBehaviour {
 
     [SerializeField] private Button _startActionBtn;
     [SerializeField] private Button _startTaskBtn;
+    [SerializeField] private Button _startAction2Btn;
     private IRootAction _rootAction;
 
     // Start is called before the first frame update
     void Start() {
         _rootAction = MixedRealityToolkit.GetService<OpenKitService>().EnsureRootAction("Test Root Action");
         _startActionBtn.onClick.AddListener(OnActionButtonClicked);
+        _startAction2Btn.onClick.AddListener(OnActionButton2Clicked);
         _startTaskBtn.onClick.AddListener(OnStartTaskButtonClicked);
         _rootAction.ReportEvent("Added button listeners");
+    }
+
+    private async void OnActionButton2Clicked() {
+        IAction enterAction = _rootAction.EnterAction("Action 2");
+        await Task.Delay(500);
+        enterAction.ReportEvent("Done some work.");
+        enterAction.LeaveAction();
     }
 
     private void OnDestroy() {
