@@ -7,10 +7,10 @@ using XRTK.Services;
 
 public class OpenKitTest : MonoBehaviour {
 
-
     [SerializeField] private Button _startActionBtn;
     [SerializeField] private Button _startTaskBtn;
     [SerializeField] private Button _startAction2Btn;
+    [SerializeField] private Button _destroyBtn;
     private IRootAction _rootAction;
 
     // Start is called before the first frame update
@@ -19,7 +19,12 @@ public class OpenKitTest : MonoBehaviour {
         _startActionBtn.onClick.AddListener(OnActionButtonClicked);
         _startAction2Btn.onClick.AddListener(OnActionButton2Clicked);
         _startTaskBtn.onClick.AddListener(OnStartTaskButtonClicked);
+        _destroyBtn.onClick.AddListener(OnDestroyClicked);
         _rootAction.ReportEvent("Added button listeners");
+    }
+
+    private void OnDestroyClicked() {
+        Destroy(gameObject);
     }
 
     private async void OnActionButton2Clicked() {
