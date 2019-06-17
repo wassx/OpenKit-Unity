@@ -25,12 +25,11 @@ public class OpenKitTest : MonoBehaviour {
     }
 
     private async void OnStartTaskButtonClicked() {
-        Task task = new Task(() => {
+        await Task.Run(async () => {
             IAction taskAction = _rootAction.EnterAction("Task action start.");
-            Task.Delay(3000);
+            await Task.Delay(3000);
             taskAction.ReportEvent("Task delayed 3s.").LeaveAction();
         });
-        await task;
     }
 
     private void OnActionButtonClicked() {
